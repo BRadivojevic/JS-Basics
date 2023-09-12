@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #parni, #neparni {
+            border: 1px solid black;
+            border-radius: 3px;
+            width: 100px;
+            height: 200px;
+            float: left;
+            padding: 8px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="broj">Unesite broj: </label><br />
+    <input type="number" id="broj" autofocus>
+    <button id="dugme">Filtriraj</button>
+    <input type="checkbox" id="radi">lock<br>
+    <div id="parni">
+        <h4>Parni:</h4>
+    </div>
+    <div id="neparni">
+        <h4>Neparni:</h4>
+    </div>
+
+    <script>
+        let cb = document.querySelector("#radi");
+        let dugme = document.querySelector("#dugme");
+        let parni = document.querySelector("#parni");
+        let neparni = document.querySelector("#neparni");
+        cb.addEventListener("change", function () {
+            alert("promenjen status cb-a");
+        });
+        dugme.addEventListener("click", function () {
+            if (!cb.checked) return;
+            input = document.querySelector("#broj");
+            broj = parseInt(input.value);
+            if (broj != input.value) {
+                alert("Enter an integer, please");
+                return;
+            }
+            postoji = false;
+            if (broj % 2 == 0) {
+                for (element of document.querySelectorAll("#parni p")) {
+                    if (parseInt(element.innerHTML) == broj) postoji = true;
+                }
+                parni.innerHTML += !postoji ? `<p>${broj}</p>` : "";
+            }
+            else {
+                for (element of document.querySelectorAll("#neparni p")) {
+                    if (parseInt(element.innerHTML) == broj) postoji = true;
+                }
+                neparni.innerHTML += !postoji ? `<p>${broj}</p>` : "";
+            }
+            input.value = null;
+        });
+    </script>
+</body>
+
+</html>
